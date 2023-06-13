@@ -62,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   TextButton(
                     onPressed: () {},
-                    child: const Text('Sign Up'),
+                    child: const Text('Contact Us'),
                   ),
                   TextButton(
                     onPressed: () {},
@@ -71,62 +71,65 @@ class _LoginPageState extends State<LoginPage> {
                 ],
               ),
             ),
-            body: Center(
-                child: Container(
-                    constraints: const BoxConstraints(maxWidth: 400),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.all(50.0),
-                          child: FlutterLogo(
-                            size: 100,
+            body: SafeArea(
+              minimum: const EdgeInsets.all(50),
+              child: Center(
+                  child: Container(
+                      constraints: const BoxConstraints(maxWidth: 400),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.all(50.0),
+                            child: FlutterLogo(
+                              size: 100,
+                            ),
                           ),
-                        ),
-                        if (loading)
-                          const CircularProgressIndicator()
-                        else
-                          Column(
-                            children: [
-                              TextFormField(
-                                controller: email,
-                                decoration: const InputDecoration(
-                                  hintText: 'Email',
+                          if (loading)
+                            const CircularProgressIndicator()
+                          else
+                            Column(
+                              children: [
+                                TextFormField(
+                                  controller: email,
+                                  decoration: const InputDecoration(
+                                    hintText: 'Email',
+                                  ),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter your email';
+                                    } else if (!RegExp(
+                                            r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
+                                        .hasMatch(value)) {
+                                      return 'Please enter a valid email';
+                                    }
+                                    return null;
+                                  },
                                 ),
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter your email';
-                                  } else if (!RegExp(
-                                          r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
-                                      .hasMatch(value)) {
-                                    return 'Please enter a valid email';
-                                  }
-                                  return null;
-                                },
-                              ),
-                              TextFormField(
-                                controller: password,
-                                decoration: const InputDecoration(
-                                  hintText: 'Password',
+                                TextFormField(
+                                  controller: password,
+                                  decoration: const InputDecoration(
+                                    hintText: 'Password',
+                                  ),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter your password';
+                                    }
+                                    return null;
+                                  },
+                                  obscureText: true,
                                 ),
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter your password';
-                                  }
-                                  return null;
-                                },
-                                obscureText: true,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(25.0),
-                                child: ElevatedButton(
-                                  onPressed: login,
-                                  child: const Text('Submit'),
+                                Padding(
+                                  padding: const EdgeInsets.all(25.0),
+                                  child: ElevatedButton(
+                                    onPressed: login,
+                                    child: const Text('Submit'),
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                      ],
-                    )))));
+                              ],
+                            ),
+                        ],
+                      ))),
+            )));
   }
 }

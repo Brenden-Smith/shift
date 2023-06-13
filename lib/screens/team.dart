@@ -69,7 +69,8 @@ class _TeamPageState extends State<TeamPage> {
                   enabled: true,
                   enableFeedback: true,
                   onTap: () {
-                    print(data);
+                    Navigator.pushNamed(context, "/profile",
+                        arguments: document.id);
                   },
                   leading: CircleAvatar(
                     backgroundImage: data["photoURL"] != null

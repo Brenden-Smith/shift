@@ -109,15 +109,17 @@ class _SchedulePageState extends State<SchedulePage> {
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: (BuildContext context, int index) {
                         final document = snapshot.data!.docs[index];
-                        final DateTime date = document["start"].toDate();
-                        final unit = document["unit"];
+                        final DateTime date =
+                            document.data()["start"]?.toDate();
+                        final unit = document.data()["unit"];
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             if (index == 0 ||
-                                document["start"].toDate().day !=
-                                    snapshot.data!.docs[index - 1]["start"]
-                                        .toDate()
+                                document.data()["start"]?.toDate().day !=
+                                    snapshot.data!.docs[index - 1]
+                                        .data()["start"]
+                                        ?.toDate()
                                         .day) ...[
                               const SizedBox(height: 16),
                               Padding(
@@ -133,13 +135,15 @@ class _SchedulePageState extends State<SchedulePage> {
                               const Divider(),
                             ],
                             ListTile(
+                              enabled: true,
+                              enableFeedback: true,
+                              onTap: () {},
                               title: Text(unit),
                               subtitle: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    // MM-DD-YYYY HH:MM - MM-DD-YYYY HH:MM
-                                    "${DateFormat.MMMd().add_jm().format(document["start"].toDate())} - ${DateFormat.MMMd().add_jm().format(document["end"].toDate())}",
+                                    "${DateFormat.MMMd().add_jm().format(document.data()["start"]?.toDate())} - ${DateFormat.MMMd().add_jm().format(document.data()["end"]?.toDate())}",
                                   ),
                                   const Text("Need 1 paramedic and 1 EMT",
                                       style: TextStyle(
@@ -150,14 +154,17 @@ class _SchedulePageState extends State<SchedulePage> {
                               // Trailing CircleAvatar group where each avatar slightly overlaps the next
                               trailing: OverlappingAvatars(
                                 avatars: [
-                                  CircleAvatar(
-                                    backgroundColor: Colors.blue,
-                                    child: const Text("1"),
-                                  ),
-                                  CircleAvatar(
-                                    backgroundColor: Colors.green,
-                                    child: const Text("1"),
-                                  ),
+                                  for (int i = 0;
+                                      i <
+                                          (document.data()["team"]?.length ??
+                                              0);
+                                      i++)
+                                    CircleAvatar(
+                                      backgroundImage: NetworkImage(
+                                        document.data()["team"]?[i]
+                                            ["photoURL"],
+                                      ),
+                                    ),
                                 ],
                                 overlap: 16.0,
                               ),

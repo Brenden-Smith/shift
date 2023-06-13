@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:shift/providers/company.dart';
 import 'package:shift/screens/home.dart';
 import 'package:shift/screens/login.dart';
+import 'package:shift/screens/profile.dart';
 import 'package:shift/screens/schedule.dart';
 import 'package:shift/screens/settings.dart';
 import 'package:shift/screens/team.dart';
@@ -60,6 +61,10 @@ class MyApp extends StatelessWidget {
               pageBuilder: (_, __, ___) => const SchedulePage(),
               settings: settings,
             );
+          case '/profile':
+            return MaterialPageRoute(
+                builder: (_) => ProfilePage(id: settings.arguments as String),
+                settings: settings);
           default:
             return MaterialPageRoute(
               builder: (context) => const MainPage(),

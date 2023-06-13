@@ -1,10 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
+import 'package:shift/providers/company.dart';
 import 'package:shift/screens/home.dart';
 import 'package:shift/screens/login.dart';
+import 'package:shift/screens/schedule.dart';
 import 'package:shift/screens/settings.dart';
 import 'package:shift/screens/team.dart';
+import 'package:shift/providers/user.dart';
 import 'firebase_options.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 
@@ -14,7 +18,10 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   usePathUrlStrategy();
-  runApp(const MyApp());
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (context) => UserDataProvider()..init()),
+    ChangeNotifierProvider(create: (context) => CompanyDataProvider()..init()),
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -46,6 +53,11 @@ class MyApp extends StatelessWidget {
           case '/team':
             return PageRouteBuilder(
               pageBuilder: (_, __, ___) => const TeamPage(),
+              settings: settings,
+            );
+          case '/schedule':
+            return PageRouteBuilder(
+              pageBuilder: (_, __, ___) => const SchedulePage(),
               settings: settings,
             );
           default:

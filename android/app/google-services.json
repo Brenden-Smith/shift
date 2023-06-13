@@ -40,42 +40,6 @@
           ]
         }
       }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:379198043128:android:8ef447bcd6fc0a9275dc0d",
-        "android_client_info": {
-          "package_name": "com.example.shift"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "379198043128-u2p6ri3nbe61l5st37kl0su47hqri89j.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAR0mcCkUWZZXfL3Xj0xEQdo0Q3DyLM3Jo"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "379198043128-u2p6ri3nbe61l5st37kl0su47hqri89j.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "379198043128-53nehpd76gdcqg4u07du110ne0lkrbk7.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.brenden-smith.shift"
-              }
-            }
-          ]
-        }
-      }
     }
   ],
   "configuration_version": "1"

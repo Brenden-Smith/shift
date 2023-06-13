@@ -1,5 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shift/providers/company.dart';
+import 'package:shift/providers/user.dart';
 
 class Destination {
   const Destination(this.label, this.icon, this.selectedIcon, this.page);
@@ -12,14 +15,25 @@ class Destination {
 
 const List<Destination> destinations = <Destination>[
   Destination('Home', Icon(Icons.home_outlined), Icon(Icons.home), "/home"),
+  Destination('Schedule', Icon(Icons.calendar_today_outlined),
+      Icon(Icons.calendar_today), "/schedule"),
   Destination('Team', Icon(Icons.groups_outlined), Icon(Icons.groups), "/team"),
   Destination('Settings', Icon(Icons.settings_outlined), Icon(Icons.settings),
       "/settings"),
 ];
 
 class Layout extends StatefulWidget {
-  const Layout({Key? key, required this.body}) : super(key: key);
+  const Layout({
+    Key? key,
+    required this.body,
+    this.floatingActionButton,
+    this.bottomSheet,
+    this.bottomAppBar,
+  }) : super(key: key);
   final Widget body;
+  final Widget? floatingActionButton;
+  final Widget? bottomSheet;
+  final PreferredSizeWidget? bottomAppBar;
 
   @override
   State<Layout> createState() => _LayoutState();
@@ -36,8 +50,12 @@ class _LayoutState extends State<Layout> {
 
   PreferredSizeWidget buildAppBar(BuildContext context) {
     final large = MediaQuery.of(context).size.width >= 450;
+    final companyData = Provider.of<CompanyDataProvider>(context).data;
     return AppBar(
-      title: const Text("Shift", style: TextStyle(color: Colors.white)),
+      title: Text(companyData?["displayName"] ?? "Shift",
+          style: const TextStyle(
+              color: Colors.white, fontWeight: FontWeight.bold)),
+      bottom: widget.bottomAppBar,
       backgroundColor: Theme.of(context).colorScheme.primary,
       automaticallyImplyLeading: false,
       centerTitle: !large,
@@ -62,10 +80,11 @@ class _LayoutState extends State<Layout> {
 
     return Scaffold(
       appBar: buildAppBar(context),
+      bottomSheet: widget.bottomSheet,
       body: SafeArea(
-        minimum: const EdgeInsets.all(24),
         child: widget.body,
       ),
+      floatingActionButton: widget.floatingActionButton,
       bottomNavigationBar: NavigationBar(
         selectedIndex: selectedIndex < 0 ? 0 : selectedIndex,
         onDestinationSelected: (int index) {
@@ -93,6 +112,7 @@ class _LayoutState extends State<Layout> {
     return Scaffold(
       key: scaffoldKey,
       appBar: buildAppBar(context),
+      floatingActionButton: widget.floatingActionButton,
       body: SafeArea(
         bottom: false,
         top: false,

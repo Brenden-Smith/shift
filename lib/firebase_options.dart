@@ -25,23 +25,15 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return web;
       case TargetPlatform.linux:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for linux - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return web;
       default:
         throw UnsupportedError(
-          'DefaultFirebaseOptions are not supported for this platform.',
+          'Failed to get Firebase options for your platform. '
+          'You must configure Firebase options manually.',
         );
     }
   }
@@ -70,7 +62,19 @@ class DefaultFirebaseOptions {
     messagingSenderId: '379198043128',
     projectId: 'shift-c35b1',
     storageBucket: 'shift-c35b1.appspot.com',
-    iosClientId: '379198043128-53nehpd76gdcqg4u07du110ne0lkrbk7.apps.googleusercontent.com',
+    iosClientId:
+        '379198043128-53nehpd76gdcqg4u07du110ne0lkrbk7.apps.googleusercontent.com',
     iosBundleId: 'com.brenden-smith.shift',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyDjI9Z-LdL8IYLQtlqAStSoc9EW7fvLWKw',
+    appId: '1:379198043128:ios:c789d1f27332956f75dc0d',
+    messagingSenderId: '379198043128',
+    projectId: 'shift-c35b1',
+    storageBucket: 'shift-c35b1.appspot.com',
+    iosClientId:
+        '379198043128-0rbnm9i7eiig04b4gjqg736p2p8t97ro.apps.googleusercontent.com',
+    iosBundleId: 'com.brenden-smith.shift.RunnerTests',
   );
 }
